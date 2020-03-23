@@ -19,6 +19,9 @@ class CondGatedMaskedConv2d(nn.Module):
     
 
 class MaskedConv2d(nn.Conv2d):
+    """
+    Implementation by jzbontar/pixelcnn-pytorch
+    """
     def __init__(self, mask_type, *args, **kwargs):
         super(MaskedConv2d, self).__init__(*args, **kwargs)
         assert mask_type in ['A', 'B']
