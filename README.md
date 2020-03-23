@@ -4,9 +4,9 @@
 
 Samples from the model after 25 epochs:
 
-|     MNIST                       |     Fashion-MNIST                |
-|:-------------------------------:|:--------------------------------:|
-|![sample_25](samples_MNIST.png)  |![sample_25](samples_Fashion.png) |
+|         MNIST                       |         Fashion-MNIST                |
+|:-----------------------------------:|:------------------------------------:|
+|![sample_25](out/samples_MNIST.png)  |![sample_25](out/samples_Fashion.png) |
 
 
 ### References
