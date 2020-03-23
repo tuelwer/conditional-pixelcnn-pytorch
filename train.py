@@ -35,6 +35,7 @@ sample = torch.Tensor(120, 1, 28, 28).cuda()
 optimizer = optim.Adam(list(net.parameters())+list(label_net.parameters()))
 criterion = torch.nn.CrossEntropyLoss()
 
+# Training loop from jzbontar/pixelcnn-pytorch
 for epoch in range(n_epochs):
     # train
     err_tr = []
