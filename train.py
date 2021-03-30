@@ -12,7 +12,7 @@ n_classes = 10 # number of classes
 n_epochs = 25 # number of epochs to train
 n_layers = 7 # number of convolutional layers
 n_channels = 16 # number of channels
-device = 'cuda'
+device = 'cuda:0'
 
 def to_one_hot(y, k=10):
     y = y.view(-1, 1)
@@ -20,7 +20,7 @@ def to_one_hot(y, k=10):
     y_one_hot.scatter_(1, y, 1)
     return y_one_hot.float()
 
-pixel_cnn = PixelCNN(n_channels, n_layers).cuda()
+pixel_cnn = PixelCNN(n_channels, n_layers).to(device)
 label_net = LabelNet().to(device)
 
 trainloader = data.DataLoader(datasets.MNIST('data', train=True,
@@ -83,11 +83,11 @@ for epoch in range(n_epochs):
                 probs = F.softmax(out[:, :, i, j], dim=1)
                 sample[:, :, i, j] = torch.multinomial(probs, 1).float() / 255.
 
-        utils.save_image(sample, 'sample_{:02d}.png'.format(epoch), nrow=10, padding=0)
+        utils.save_image(sample, 'sample_{:02d}.png'.format(epoch+1), nrow=10, padding=0)
 
-        output_string = 'epoch: {}/{} bpp_tr: {:.7f}' + \
-            'bpp_te: {:.7f} time_tr: {:.1f}s time_te: {:.1f}s'
-        print(output_string.format(epoch,
+        output_string = 'epoch: {}/{} bpp (train): {:.7f}' + \
+            ' bpp (test): {:.7f} time (training): {:.1f}s time (testing): {:.1f}s'
+        print(output_string.format(epoch+1,
                                    n_epochs,
                                    np.mean(err_tr)/np.log(2),
                                    np.mean(err_te)/np.log(2),

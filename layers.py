@@ -55,10 +55,10 @@ class CondGatedMaskedConv2d(nn.Module):
         x: input
         h: conditional input (should have the same shape as input)
         """
-        inp = self.tanh(self.masked_conv_1(x))
-        inp_gate = self.sigm(self.masked_conv_2(x))
-        cond = self.tanh(self.cond_conv_1(h))
-        cond_gate = self.sigm(self.cond_conv_2(h))
-        return inp*inp_gate + cond*cond_gate
+        inp = self.tanh(self.masked_conv_1(x)
+                        + self.cond_conv_1(h))
+        gate = self.sigm(self.masked_conv_2(x)
+                         + self.cond_conv_2(h))
+        return inp * gate
     
 
